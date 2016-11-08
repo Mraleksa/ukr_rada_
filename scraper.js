@@ -45,7 +45,7 @@ function run(db) {
 		// Use cheerio to find things in the page with css selectors.
 		var $ = cheerio.load(body);
 
-		var elements = $("body").each(function () {
+		var elements = $(".art-postheadericon").each(function () {
 			var value = $(this).text().trim();
 			updateRow(db, value);
 		});

@@ -43,14 +43,22 @@ function fetchPage(url, callback) {
 
 function run(db) {
 	// Use request to read in pages.
-	fetchPage("http://oligarh.org.ua", function (body) {
+	fetchPage("https://prozorro.gov.ua/tender/UA-2016-09-01-000199-a", function (body) {
 		// Use cheerio to find things in the page with css selectors.
-		var $ = cheerio.load(body);
+		var id    = $('.row').text()//.replace(/\s{2,}/g, ' ');
+		
+		try {
 
-		var elements = $(".art-postheadericon").each(function () {
-			var value = $(this).text().trim();
-			updateRow(db, value);
-		});
+  var res = id.match( /Зміна ціни за одиницю товару/ig ).join(';');
+if (res)res = "true";
+
+} catch (err) {
+
+  var res = "false";
+
+}
+			updateRow(db, id);
+		
 
 		readRows(db);
 
